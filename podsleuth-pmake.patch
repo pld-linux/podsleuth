@@ -1,0 +1,22 @@
+--- podsleuth-0.6.1/src/PodSleuth/Makefile.am.orig	2007-12-19 21:28:34.000000000 +0100
++++ podsleuth-0.6.1/src/PodSleuth/Makefile.am	2008-01-12 14:41:48.849859399 +0100
+@@ -20,6 +20,8 @@
+ $(ASSEMBLY): $(ASSEMBLY_SRC) $(ASSEMBLY_EXPANDED_RES)
+ 	$(MCS) -out:$@ -debug -target:library $(ASSEMBLY_REF) $(ASSEMBLY_EXPANDED_RES_BUILD) $(ASSEMBLY_SRC) 
+ 
++$(ASSEMBLY).mdb: $(ASSEMBLY)
++
+ EXTRA_DIST = \
+ 	$(ASSEMBLY_SRC) \
+ 	$(ASSEMBLY).config.in \
+--- podsleuth-0.6.1/src/PodSleuth.Hal/Makefile.am.orig	2007-12-19 21:35:58.000000000 +0100
++++ podsleuth-0.6.1/src/PodSleuth.Hal/Makefile.am	2008-01-12 14:49:18.589441708 +0100
+@@ -22,6 +22,8 @@
+ $(ASSEMBLY): $(ASSEMBLY_SRC)
+ 	$(MCS) -out:$@ -debug -unsafe $(ASSEMBLY_REF) $(ASSEMBLY_SRC)
+ 
++$(ASSEMBLY).mdb: $(ASSEMBLY)
++
+ run: $(ASSEMBLY)
+ 	@MONO_PATH=../PodSleuth$${MONO_PATH+:$$MONO_PATH} mono --debug $(ASSEMBLY)
+ 
