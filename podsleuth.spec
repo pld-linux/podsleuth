@@ -1,5 +1,6 @@
 %include	/usr/lib/rpm/macros.mono
 Summary:	A tool to discover detailed model information about iPods
+Summary(pl.UTF-8):	Narzędzie do odczytu szczegółowych informacji o modelu iPoda
 Name:		podsleuth
 Version:	0.6.1
 Release:	1
@@ -23,7 +24,19 @@ ExcludeArch:	i386
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-PodSleuth is a tool to discover detailed model information about an Apple (TM) iPod (TM). Its primary role is to be run as a callout by HAL because root access is needed to scan the device for required information. When the model information is discovered, it is merged into HAL as properties for other applications to use.
+PodSleuth is a tool to discover detailed model information about an
+Apple(TM) iPod(TM). Its primary role is to be run as a callout by
+HAL because root access is needed to scan the device for required
+information. When the model information is discovered, it is merged
+into HAL as properties for other applications to use.
+
+%description -l pl.UTF-8
+PodSleuth to narzędzie do odczytu szczegółowych informacji o modelu
+urządzenia Apple(TM) iPod(TM). Jest przeznaczony głównie do
+wywoływania przez HAL-a, ponieważ do odczytu wymaganych informacji z
+urządzenia potrzebne są uprawnienia roota. Po odczycie informacji o
+modelu są one włączane do HAL-a jako właściwości do wykorzystania
+przez inne aplikacje.
 
 %prep
 %setup -q
