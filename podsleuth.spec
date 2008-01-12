@@ -15,6 +15,7 @@ BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	hal-devel >= 0.5.6
 BuildRequires:	mono-csharp >= 1.1.16.1
+BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(monoautodeps)
 Requires:	hal >= 0.5.6
 # DllImport, not detected by monoautodeps
