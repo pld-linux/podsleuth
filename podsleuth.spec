@@ -4,21 +4,27 @@ Summary(pl.UTF-8):	Narzędzie do odczytu szczegółowych informacji o modelu iPo
 Name:		podsleuth
 Version:	0.6.1
 Release:	1
-# no real license information, just included COPYING
-License:	LGPL v2
+License:	MIT
 Group:		Libraries
 Source0:	http://banshee-project.org/files/podsleuth/%{name}-%{version}.tar.bz2
 # Source0-md5:	201f779f2a8d8cf71d1cf4e7d1b798c7
+Patch0:		%{name}-pmake.patch
+Patch1:		%{name}-nodebug.patch
 URL:		http://banshee-project.org/PodSleuth
 BuildRequires:	autoconf >= 2.50
-BuildRequires:	automake
+BuildRequires:	automake >= 1:1.9
 BuildRequires:	hal-devel >= 0.5.6
-BuildRequires:	libtool
 BuildRequires:	mono-csharp >= 1.1.16.1
-BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(monoautodeps)
-BuildRequires:	sg3_utils-devel
-Obsoletes:	libipoddevice
+Requires:	hal >= 0.5.6
+# DllImport, not detected by monoautodeps
+%ifarch %{x8664} ia64 ppc64 s390x sparc64
+Requires:	libsgutils.so.1()(64bit)
+%else
+Requires:	libsgutils.so.1
+%endif
+# doesn't conflict with libipoddevice - either obsolete all libipoddevice* packages, or nothing
+#Obsoletes:	libipoddevice
 ExcludeArch:	i386
 # can't be noarch because of pkgconfigdir (use /usr/share/pkgconfig?)
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -40,6 +46,8 @@ przez inne aplikacje.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
 
 %build
 %{__aclocal} -I m4
@@ -53,16 +61,21 @@ przez inne aplikacje.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	sleuthdir=%{_libdir}/podsleuth
+# argh: {hal-,}podsleuth scripts use @expanded_libdir@/podsleuth, which is
+# %{_libdir}-based while Makefile.am uses $(prefix)/lib/podsleuth to install
+# => sleuthdir override needed
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README
+%doc AUTHORS COPYING ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/podsleuth
 %attr(755,root,root) %{_libdir}/hal/hal-podsleuth
 %{_datadir}/hal/fdi/policy/20thirdparty/20-podsleuth.fdi
+# TODO: *.mdb to -debug or /dev/null?
 %{_libdir}/podsleuth
 %{_pkgconfigdir}/podsleuth.pc
