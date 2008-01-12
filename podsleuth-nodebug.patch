@@ -1,0 +1,18 @@
+--- podsleuth-0.6.1/src/PodSleuth.Hal/hal-podsleuth.in.orig	2007-09-17 09:51:40.000000000 +0200
++++ podsleuth-0.6.1/src/PodSleuth.Hal/hal-podsleuth.in	2008-01-12 15:06:55.891137185 +0100
+@@ -10,11 +10,12 @@
+ 	MONO_EXEC_ARGS="--discover"
+ fi
+ 
+-DEBUG_PATH=/tmp/podsleuth-debug
++# it would be security hole
++#DEBUG_PATH=/tmp/podsleuth-debug
+ 
+ rm -f $DEBUG_PATH
+ 
+-$MONO $MONO_ARGS $MONO_EXEC $MONO_EXEC_ARGS &> $DEBUG_PATH && {
+-	rm -f $DEBUG_PATH
++$MONO $MONO_ARGS $MONO_EXEC $MONO_EXEC_ARGS > ${DEBUG_PATH-/dev/null} 2>&1 && {
++	${DEBUG_PATH:+rm -f $DEBUG_PATH}
+ }
+ 
