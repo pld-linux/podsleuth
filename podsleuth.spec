@@ -3,7 +3,7 @@ Summary:	A tool to discover detailed model information about iPods
 Summary(pl.UTF-8):	Narzędzie do odczytu szczegółowych informacji o modelu iPoda
 Name:		podsleuth
 Version:	0.6.1
-Release:	1
+Release:	2
 License:	MIT
 Group:		Libraries
 Source0:	http://banshee-project.org/files/podsleuth/%{name}-%{version}.tar.bz2
