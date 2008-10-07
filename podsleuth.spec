@@ -3,7 +3,7 @@ Summary:	A tool to discover detailed model information about iPods
 Summary(pl.UTF-8):	Narzędzie do odczytu szczegółowych informacji o modelu iPoda
 Name:		podsleuth
 Version:	0.6.3
-Release:	1
+Release:	2
 License:	MIT
 Group:		Libraries
 Source0:	http://banshee-project.org/files/podsleuth/%{name}-%{version}.tar.bz2
@@ -22,9 +22,9 @@ BuildRequires:	sg3_utils-devel >= 1.27
 Requires:	hal >= 0.5.6
 # DllImport, not detected by monoautodeps
 %ifarch %{x8664} ia64 ppc64 s390x sparc64
-Requires:	libsgutils.so.1()(64bit)
+Requires:	libsgutils2.so.2()(64bit)
 %else
-Requires:	libsgutils.so.1
+Requires:	libsgutils2.so.2
 %endif
 # doesn't conflict with libipoddevice - either obsolete all libipoddevice* packages, or nothing
 #Obsoletes:	libipoddevice
