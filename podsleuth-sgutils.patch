@@ -1,0 +1,11 @@
+--- podsleuth-0.6.3/m4/podsleuth.m4~	2007-12-19 23:37:05.000000000 +0100
++++ podsleuth-0.6.3/m4/podsleuth.m4	2008-10-07 20:02:59.702109300 +0200
+@@ -32,7 +32,7 @@
+ 
+ AC_DEFUN([PODSLEUTH_CHECK_SGUTILS],
+ [
+-	AC_CHECK_LIB(sgutils, sg_ll_inquiry, [], 
++	AC_CHECK_LIB(sgutils2, sg_ll_inquiry, [], 
+ 		AC_MSG_ERROR([Error! You need to have libsgutils.])
+ 	)
+ ])
