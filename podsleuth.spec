@@ -2,14 +2,15 @@
 Summary:	A tool to discover detailed model information about iPods
 Summary(pl.UTF-8):	Narzędzie do odczytu szczegółowych informacji o modelu iPoda
 Name:		podsleuth
-Version:	0.6.1
-Release:	3
+Version:	0.6.3
+Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://banshee-project.org/files/podsleuth/%{name}-%{version}.tar.bz2
-# Source0-md5:	201f779f2a8d8cf71d1cf4e7d1b798c7
+# Source0-md5:	b5ee19f8a4eb8da8d600500df33eda87
 Patch0:		%{name}-pmake.patch
 Patch1:		%{name}-nodebug.patch
+Patch2:		%{name}-sgutils.patch
 URL:		http://banshee-project.org/PodSleuth
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.9
@@ -17,7 +18,7 @@ BuildRequires:	hal-devel >= 0.5.6
 BuildRequires:	mono-csharp >= 1.1.16.1
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(monoautodeps)
-BuildRequires:	sg3_utils-devel
+BuildRequires:	sg3_utils-devel >= 1.27
 Requires:	hal >= 0.5.6
 # DllImport, not detected by monoautodeps
 %ifarch %{x8664} ia64 ppc64 s390x sparc64
@@ -50,6 +51,7 @@ przez inne aplikacje.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__aclocal} -I m4
