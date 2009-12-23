@@ -2,15 +2,15 @@
 Summary:	A tool to discover detailed model information about iPods
 Summary(pl.UTF-8):	Narzędzie do odczytu szczegółowych informacji o modelu iPoda
 Name:		podsleuth
-Version:	0.6.3
-Release:	2
+Version:	0.6.5
+Release:	1
 License:	MIT
 Group:		Libraries
-Source0:	http://banshee-project.org/files/podsleuth/%{name}-%{version}.tar.bz2
-# Source0-md5:	b5ee19f8a4eb8da8d600500df33eda87
+Source0:	http://banshee-project.org/files/podsleuth/0.6.5/%{name}-%{version}.tar.bz2
+# Source0-md5:	5cbe9c3bb199912e15f65314b4f46ca8
+Source1:	org.podsleuth.conf
 Patch0:		%{name}-pmake.patch
 Patch1:		%{name}-nodebug.patch
-Patch2:		%{name}-sgutils.patch
 URL:		http://banshee-project.org/PodSleuth
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.9
@@ -51,7 +51,6 @@ przez inne aplikacje.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__aclocal} -I m4
@@ -65,11 +64,10 @@ przez inne aplikacje.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	sleuthdir=%{_libdir}/podsleuth
-# argh: {hal-,}podsleuth scripts use @expanded_libdir@/podsleuth, which is
-# %{_libdir}-based while Makefile.am uses $(prefix)/lib/podsleuth to install
-# => sleuthdir override needed
+	DESTDIR=$RPM_BUILD_ROOT
+
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/dbus-1/system.d
+install  %SOURCE1 $RPM_BUILD_ROOT%{_sysconfdir}/dbus-1/system.d
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -81,5 +79,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/hal/hal-podsleuth
 %{_datadir}/hal/fdi/policy/20thirdparty/20-podsleuth.fdi
 # TODO: *.mdb to -debug or /dev/null?
-%{_libdir}/podsleuth
+/usr/lib/podsleuth
 %{_pkgconfigdir}/podsleuth.pc
+%{_sysconfdir}/dbus-1/system.d/org.podsleuth.conf
