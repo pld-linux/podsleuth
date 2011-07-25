@@ -2,16 +2,16 @@
 Summary:	A tool to discover detailed model information about iPods
 Summary(pl.UTF-8):	Narzędzie do odczytu szczegółowych informacji o modelu iPoda
 Name:		podsleuth
-Version:	0.6.5
-Release:	2
+Version:	0.6.7
+Release:	1
 License:	MIT
 Group:		Libraries
-Source0:	http://banshee-project.org/files/podsleuth/0.6.5/%{name}-%{version}.tar.bz2
-# Source0-md5:	5cbe9c3bb199912e15f65314b4f46ca8
-Source1:	org.podsleuth.conf
+Source0:	http://download.banshee.fm/podsleuth/%{version}/%{name}-%{version}.tar.bz2
+# Source0-md5:	987abf0992193ebc526952f86f64a72c
+Source1:	org.%{name}.conf
 Patch0:		%{name}-pmake.patch
 Patch1:		%{name}-nodebug.patch
-URL:		http://banshee-project.org/PodSleuth
+URL:		http://download.banshee.fm/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	hal-devel >= 0.5.6
@@ -34,8 +34,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 PodSleuth is a tool to discover detailed model information about an
-Apple(TM) iPod(TM). Its primary role is to be run as a callout by
-HAL because root access is needed to scan the device for required
+Apple(TM) iPod(TM). Its primary role is to be run as a callout by HAL
+because root access is needed to scan the device for required
 information. When the model information is discovered, it is merged
 into HAL as properties for other applications to use.
 
@@ -62,12 +62,11 @@ przez inne aplikacje.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/dbus-1/system.d
-install  %SOURCE1 $RPM_BUILD_ROOT%{_sysconfdir}/dbus-1/system.d
+cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/dbus-1/system.d
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -79,6 +78,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/hal/hal-podsleuth
 %{_datadir}/hal/fdi/policy/20thirdparty/20-podsleuth.fdi
 # TODO: *.mdb to -debug or /dev/null?
-/usr/lib/podsleuth
+%{_prefix}/lib/podsleuth
 %{_pkgconfigdir}/podsleuth.pc
-%{_sysconfdir}/dbus-1/system.d/org.podsleuth.conf
+/etc/dbus-1/system.d/org.podsleuth.conf
