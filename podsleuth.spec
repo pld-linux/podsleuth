@@ -1,4 +1,3 @@
-%include	/usr/lib/rpm/macros.mono
 Summary:	A tool to discover detailed model information about iPods
 Summary(pl.UTF-8):	Narzędzie do odczytu szczegółowych informacji o modelu iPoda
 Name:		podsleuth
